@@ -24,9 +24,7 @@ def protein_DB_input(wildcards):
 def genome_input(wildcards):
     return {
         "fasta": genomes.loc[wildcards.sample, "FASTA"], 
-        "gff": genomes.loc[wildcards.sample, "GFF"],
-        "cds": genomes.loc[wildcards.sample, "CDS"],
-        "faa": genomes.loc[wildcards.sample, "FAA"]
+        "gff": genomes.loc[wildcards.sample, "GFF"]
     }
         
 #This function returns species abbreviation   

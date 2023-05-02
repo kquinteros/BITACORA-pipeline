@@ -19,12 +19,6 @@ properties:
   GFF:
     type: string
     description: Path to GFF file (genome annotation)
-  CDS:
-    type: string
-    description: Path to protein coding sequences
-  FAA:
-    type: string
-    description: Path to amino acid sequences
 
 
 # columns that the config/ref_genomes.tsv file must have to pass schema validation
@@ -34,5 +28,3 @@ required:
   - Species
   - FASTA
   - GFF
-  - CDS
-  - FAA
