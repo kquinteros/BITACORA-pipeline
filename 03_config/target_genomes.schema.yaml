@@ -1,0 +1,38 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+description: Data table target genomes and their genome annotation
+
+# columns that the 04_config/ref_genomes.tsv file can have and which type they should be
+properties:
+  Sample:
+    type: string
+    description: wildcard symbol for each target genome
+  Key:
+    type: string
+    description: abbreviation for the species
+  Species:
+    type: string
+    description: species name
+  FASTA:
+    type: string
+    description: Path to genome fasta file
+  GFF:
+    type: string
+    description: Path to GFF file (genome annotation)
+  CDS:
+    type: string
+    description: Path to protein coding sequences
+  FAA:
+    type: string
+    description: Path to amino acid sequences
+
+
+# columns that the config/ref_genomes.tsv file must have to pass schema validation
+required:
+  - Sample
+  - Key
+  - Species
+  - FASTA
+  - GFF
+  - CDS
+  - FAA

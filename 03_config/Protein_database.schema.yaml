@@ -1,0 +1,25 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+description: Data table of all protein sequences for each chemosensroy gene family of interest
+
+# columns that the 04_config/ref_genomes.tsv file can have and which type they should be
+properties:
+  Samples:
+    type: string
+    description: wildcard symbol for each protein family
+  Gene_family:
+    type: string
+    description: name of proteins in gene family
+  Domain:
+    type: string
+    description: Protein domain shared among proteins witin gene family
+  Sequences:
+    type: string
+    description: Curated protein sequences within gene family
+
+# columns that the config/ref_genomes.tsv file must have to pass schema validation
+required:
+  - Samples
+  - Gene_family
+  - Domain
+  - Sequences

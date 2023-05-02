@@ -1,0 +1,28 @@
+##--- Profile defaults
+
+# non-slurm profile defaults
+use-conda: True
+printshellcmds: True
+use-singularity: True
+
+##--- Protein sequence, protein domains and target genomes --##
+protein_table: '03_config/protein_database.tsv'
+target_genomes: '03_config/target_genomes.tsv'
+
+##--- setting for BITACORA ---#
+BITACORA: "bitacora-master" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+scripts: "bitacora-master/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+GeMoMa: "GeMoMa-1/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
+hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
+maxintron: 40000 #Maximum length of an intron
+evalue: 1e-6 #Evalue for BLAST and HMMER
+tools: "bitacora-master/Scripts/Tools" #Bitacora tools
+retain_genes: "T" 
+
+##--- conda environments --##
+env-bitacora: "../01_envs/GeMoMa_v1_9.yaml"
+
+
+
+
