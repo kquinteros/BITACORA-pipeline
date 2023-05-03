@@ -1,7 +1,7 @@
 | Gene Family                   | File         |
 |-------------------------------|--------------|
-| Olfactory Receptor            | 7tm_6.hmm    |
-| Gustatory Receptor            | 7tm_7.hmm    |
-| Chemosensory Binding Proteins | Lig_chan.hmm |
-| Odorant Binding Proteins      | OS-D.hmm     |
-| Ionotropic Receptors          | PBP_GOBP.hmm |
+| Olfactory Receptor            | OR_db.fasta  |
+| Gustatory Receptor            | GR_db.fasta  |
+| Chemosensory Binding Proteins | CSP_db.fasta |
+| Odorant Binding Proteins      | OBP_db.fasta |
+| Ionotropic Receptors          | IR_db.fasta  |
