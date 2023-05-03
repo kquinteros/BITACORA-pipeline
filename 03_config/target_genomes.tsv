@@ -1,5 +1,2 @@
 Sample	Key	Species	FASTA	GFF
-S001	Amel	A. mellifera	00_data/02_target_genome/Amel.fas	00_data/02_target_genome/Amel.gff
-S002	Bmor	B. mori	00_data/02_target_genome/Bmor.fas	00_data/02_target_genome/Bmor.gff
-S003	Cflo	C. floridanum 	00_data/02_target_genome/Cflo.fas	00_data/02_target_genome/Cflo.gff
-S004	Csol	C. solmsi	00_data/02_target_genome/Csol.fas	00_data/02_target_genome/Csol.gff
+S001	Dmel	D. melanogaster	00_data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa	00_data/02_target_genome/rosophila_melanogaster.BDGP6.95.chromosome.2R.reformatted.gff3
