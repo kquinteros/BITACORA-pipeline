@@ -1,3 +1,9 @@
+#loading python libraries 
+from snakemake.utils import validate
+import pandas as pd
+import yaml
+from smart_open import open
+
 ##--- validate configuration file --##
 validate(config, schema="../03_config/config.schema.yaml")
 
