@@ -27,6 +27,9 @@ tools: "bitacora/Scripts/Tools" #Bitacora tools
 retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
 
+##computational resources
+num_threads: 10 #number of threads avaliable per bitacora run 
+
 ##--- conda environments --##
 env-bitacora: "../01_envs/GeMoMa_v1_9.yaml"
 

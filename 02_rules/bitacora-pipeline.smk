@@ -88,7 +88,7 @@ rule bitacora_full:
         z = config["retain_genes"], #Retain all annotated genes, without any clustering of identical copies
         c = config["clean_out"], #Clean output files
         outdir = "04_output/{sample}" #output directory
-    threads: 10
+    threads: config[num_threads] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in full mode"
     conda:
