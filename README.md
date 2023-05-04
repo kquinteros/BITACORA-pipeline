@@ -83,10 +83,13 @@ clean_out: "T" #Clean output files
 ### Input data configuration files
 
 1. ```03_config/target_genoms.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Sample" column. 
+
 | Sample | Key  | Species         | FASTA                                                                       | GFF                                                                                     |
 |--------|------|-----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
 | S001   | Dmel | D. melanogaster | 00_data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa | 00_data/02_target_genome/rosophila_melanogaster.BDGP6.95.chromosome.2R.reformatted.gff3 |
+
 2. ```03_config/protein_database.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Samples" column. 
+
 | Samples | Gene_family                   | Domain                                  | Sequences                                 |
 |---------|-------------------------------|-----------------------------------------|-------------------------------------------|
 | P1      | Olfactory Receptors           | 00_data/01_protein_domains/7tm_6.hmm    | 00_data/00_protein_sequences/OR_db.fasta  |
