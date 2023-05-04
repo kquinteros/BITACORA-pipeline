@@ -69,6 +69,9 @@ min_length: 30 #Minimum length to retain identified genes
 tools: "bitacora/Scripts/Tools" #Bitacora tools
 retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
+
+##--- computational resources ---#
+num_threads: 10 #number of threads avaliable per bitacora run 
 ```
 
 ## Input data
@@ -77,12 +80,12 @@ clean_out: "T" #Clean output files
 
 2. ```00_data/01_protein_domains``` contain HMM profiles which are found in InterPro or PFAM databases associated to known protein domains.
 
-3. ```00_data/01_protein_domains``` contains genome assemblies and their associated genome annotations. You can place your own genome (fasta) and annotations (gff) here. 
+3. ```00_data/01_protein_domains``` contains genome assemblies and their associated genome annotations. You can place your own genomes (fasta) and annotations (gff) here. 
 
 
 ### Input data configuration files
 
-1. ```03_config/target_genoms.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Sample" column. 
+1. ```target_genomes.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Sample" column if you have more than one target genome. 
 
 | Sample | Key  | Species         | FASTA                                                                       | GFF                                                                                     |
 |--------|------|-----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
@@ -107,7 +110,7 @@ cd /PATH/TO/BITACORA-pipeline/
 conda activate snakemake 
 snakemake -s snakefile --cores {Number_Cores} --use-conda 
 ```
-Some jobs can take a few hours to run depending the size of the genome and the number of sequence in your protein database. In that case, you may want to run snakemake workflow in the background. 
+Some jobs can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
 
 ```
 nohup snakemake -s snakefile --cores {Number_Cores} --use-conda > bitacora_fullmode.out 2>&1 &
