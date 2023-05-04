@@ -18,17 +18,13 @@ rule copy_genomic_data:
         unpack(genome_input)
     output:
         fas = "04_output/{sample}/{sample}.fasta",
-        gff = "04_output/{sample}/{sample}.gff",
-        fna = "04_output/{sample}/{sample}.fna",
-        faa = "04_output/{sample}/{sample}.faa"
+        gff = "04_output/{sample}/{sample}.gff"
     message:
         "Copying protein sequences and hmm domain profiles to the bitacora full-mode analysis folder"
     shell:
         """
         cp {input.fasta} {output.fas}
         cp {input.gff} {output.gff} 
-        cp {input.cds} {output.fna}
-        cp {input.faa} {output.faa}
         """
 ###--- convert gff to protein sequences ---###
 rule gff2fasta:
@@ -79,18 +75,18 @@ rule bitacora_full:
         mode = "full", #bitacora mode
         DB = "../", #path to folder containing databases
         name = genome_key, #prefix for output
-        blast = "T", #conduct BLASTP (T or F)
-        algorithm = "gemoma", #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
+        blast = config["use_blast"], #conduct BLASTP (T or F)
+        algorithm = config["algorithm"], #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
         sp = "../../" + config["scripts"], #path to bitacora scripts 
         gp = "../../" + config["GeMoMa"], #path to GeMoMa executable
         bp = config["blast"], #path to BLAST executable
         hp = config["hmmer"], #path hmmer executable
         e = config["evalue"], #e-value
         i = config["maxintron"], #maximum intron length 
-        r = "T", #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
-        l = 30, #Minimum length to retain identified genes
+        r = config["addition_filter"], #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
+        l = config["min_length"], #Minimum length to retain identified genes
         z = config["retain_genes"], #Retain all annotated genes, without any clustering of identical copies
-        c = "T", #Clean output files
+        c = config["clean_out"], #Clean output files
         outdir = "04_output/{sample}" #output directory
     threads: 10
     message:

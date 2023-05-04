@@ -10,7 +10,7 @@ from snakemake.utils import min_version
 min_version("5.30.1")
 
 ##--- Importing Configuration Files ---##
-configfile: '04_config/config.yaml' 
+configfile: '03_config/config.yaml' 
         
 #--- include rules ---#
 include: '02_rules/common.smk' #contains input/output and helper functions. Additional output arrays and libraries defined
