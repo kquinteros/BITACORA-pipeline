@@ -23,3 +23,8 @@ required:
   - tools 
   - retain_genes
   - env-bitacora
+  - use_blast
+  - algorithm
+  - min_length
+  - clean_out
+  - addition_filter
