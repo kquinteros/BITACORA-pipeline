@@ -9,10 +9,10 @@ protein_table: '03_config/protein_database.tsv'
 target_genomes: '03_config/target_genomes.tsv'
 
 ##--- Path To Executable And Dependencies ---#
-BITACORA: "bitacora-master" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-scripts: "bitacora-master/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-GeMoMa: "GeMoMa-1/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-tools: "bitacora-master/Scripts/Tools" #Bitacora tools
+BITACORA: "bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+scripts: "bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+GeMoMa: "GeMoMa/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+tools: "bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
 
@@ -23,7 +23,7 @@ algorithm: "gemoma" #Algorithm used to predict novel genes. Specify 'gemoma' or 
 addition_filter: "T" #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
 evalue: 1e-3 #Evalue for BLAST and HMMER
 min_length: 30 #Minimum length to retain identified genes
-tools: "bitacora-master/Scripts/Tools" #Bitacora tools
+tools: "bitacora/Scripts/Tools" #Bitacora tools
 retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
 
