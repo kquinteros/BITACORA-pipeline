@@ -1,6 +1,6 @@
 # BITACORA-pipeline
 
-Snakemake pipeline for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
+Snakemake workflow for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
 
 ## Getting started
 1. Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package management system and [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow management system. It's recommended that users have a dedicated snakemake environment. We have provided some commandline prompts (assuming conda is installed) for the installation of Snakmake.
@@ -59,7 +59,7 @@ tools: "bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
 
-##--- setting for BITACORA ---#
+##--- setting for BITACORA ---##
 use_blast: "T" #conduct BLASTP (T or F)
 maxintron: 15000 #Maximum length of an intron
 algorithm: "gemoma" #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
@@ -70,7 +70,7 @@ tools: "bitacora/Scripts/Tools" #Bitacora tools
 retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
 
-##--- computational resources ---#
+##--- computational resources ---##
 num_threads: 10 #number of threads avaliable per bitacora run 
 ```
 
@@ -110,7 +110,7 @@ cd /PATH/TO/BITACORA-pipeline/
 conda activate snakemake 
 snakemake -s snakefile --cores {Number_Cores} --use-conda 
 ```
-Some jobs can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
+Some workflows can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
 
 ```
 nohup snakemake -s snakefile --cores {Number_Cores} --use-conda > bitacora_fullmode.out 2>&1 &

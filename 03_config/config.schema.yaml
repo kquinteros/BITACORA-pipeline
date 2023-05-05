@@ -28,3 +28,4 @@ required:
   - min_length
   - clean_out
   - addition_filter
+  - num_threads

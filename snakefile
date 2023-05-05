@@ -14,7 +14,7 @@ configfile: '03_config/config.yaml'
         
 #--- include rules ---#
 include: '02_rules/common.smk' #contains input/output and helper functions. Additional output arrays and libraries defined
-include: '02_rules/bitacora-pipeline.smk' #contain the main rules for bitacora analysis
+include: '02_rules/bitacora-pipeline.smk' #contains the main rules for bitacora pipeline
  
 #universal rule that checks the output of every rule  
 rule all:
