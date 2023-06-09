@@ -25,7 +25,7 @@ rule copy_genomic_data:
         """
         cp {input.fasta} {output.fas}
         cp {input.gff} {output.gff} 
-        """
+        """ 
 ###--- convert gff to protein sequences ---###
 rule gff2fasta:
     input:
@@ -88,7 +88,7 @@ rule bitacora_full:
         z = config["retain_genes"], #Retain all annotated genes, without any clustering of identical copies
         c = config["clean_out"], #Clean output files
         outdir = "04_output/{sample}" #output directory
-    threads: config[num_threads] #number of threads avaliable per bitacora run
+    threads: config["num_threads"] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in full mode"
     conda:

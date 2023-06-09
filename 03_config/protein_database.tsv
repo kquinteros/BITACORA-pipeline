@@ -1,6 +1,7 @@
 Samples	Gene_family	Domain	Sequences
 P1	Olfactory Receptors	00_data/01_protein_domains/7tm_6.hmm	00_data/00_protein_sequences/OR_db.fasta
-P2	Gustatory Receptors	00_data/01_protein_domains/7tm_7.hmm	00_data/00_protein_sequences/GR_db.fasta
-P3	Chemosensory Binding Proteins	00_data/01_protein_domains/Lig_chan.hmm	00_data/00_protein_sequences/CSP_db.fasta
-P4	Odorant Binding Proteins	00_data/01_protein_domains/OS-D.hmm	00_data/00_protein_sequences/OBP_db.fasta
-P5	Ionotropic Receptors	00_data/01_protein_domains/PBP_GOBP.hmm	00_data/00_protein_sequences/IR_db.fasta
+P2	Gustatory Receptors	00_data/01_protein_domains/7tm_7.hmm	00_data/00_protein_sequences/GR_tre_db.fasta
+P3	Gustatory Receptors	00_data/01_protein_domains/Trehalose_recp.hmm	00_data/00_protein_sequences/GR_7tm7_db.fasta
+P4	Chemosensory Proteins	00_data/01_protein_domains/OS-D.hmm	00_data/00_protein_sequences/CSP_db.fasta
+P5	Odorant Binding Proteins	00_data/01_protein_domains/PBP_GOBP.hmm	00_data/00_protein_sequences/OBP_db.fasta
+P6	Ionotropic Receptors	00_data/01_protein_domains/Lig_chan.hmm	00_data/00_protein_sequences/IR_db.fasta
