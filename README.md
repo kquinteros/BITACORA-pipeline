@@ -64,7 +64,7 @@ use_blast: "T" #conduct BLASTP (T or F)
 maxintron: 15000 #Maximum length of an intron
 algorithm: "gemoma" #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
 addition_filter: "T" #Conduct an additional filtering of the annotations if True. Specify 'T' or 'F' 
-evalue: 1e-3 #Evalue for BLAST and HMMER
+evalue: 1e-5 #Evalue for BLAST and HMMER
 min_length: 30 #Minimum length to retain identified genes
 tools: "bitacora/Scripts/Tools" #Bitacora tools
 retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
