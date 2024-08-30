@@ -2,6 +2,8 @@
 
 Snakemake workflow for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
 
+You can find more information about Bitacora on their [GitHub](https://github.com/molevol-ub/bitacora).
+
 Please make sure to cite the original Bitacora paper when using this pipeline
 
 Vizueta, J., Sánchez-Gracia, A., Rozas, J. (2020). BITACORA: A comprehensive tool for the identification and annotation of gene families in genome assemblies. Molecular Ecology Resources. 20: 1445-1452. doi:10.1111/1755-0998.13202.
