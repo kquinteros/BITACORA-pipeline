@@ -1,4 +1,4 @@
-# BITACORA-pipeline
+# BITACORA-SNAKEMAKE-PIPELINE
 
 Snakemake workflow for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
 
