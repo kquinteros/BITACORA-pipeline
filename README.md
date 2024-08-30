@@ -2,6 +2,10 @@
 
 Snakemake workflow for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
 
+Please make sure to cite the original Bitacora paper when using this pipeline
+
+Vizueta, J., Sánchez-Gracia, A., Rozas, J. (2020). BITACORA: A comprehensive tool for the identification and annotation of gene families in genome assemblies. Molecular Ecology Resources. 20: 1445-1452. doi:10.1111/1755-0998.13202.
+
 ## Getting started
 1. Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package management system and [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow management system. It's recommended that users have a dedicated snakemake environment. We have provided some commandline prompts (assuming conda is installed) for the installation of Snakmake.
 ```python 
