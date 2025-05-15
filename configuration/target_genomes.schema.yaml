@@ -16,9 +16,6 @@ properties:
   FASTA:
     type: string
     description: Path to genome fasta file
-  GFF:
-    type: string
-    description: Path to GFF file (genome annotation)
 
 
 # columns that the config/ref_genomes.tsv file must have to pass schema validation
@@ -27,4 +24,3 @@ required:
   - Key
   - Species
   - FASTA
-  - GFF

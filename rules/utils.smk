@@ -5,17 +5,17 @@ import yaml
 from smart_open import open
 
 ##--- validate configuration file --##
-validate(config, schema="../03_config/config.schema.yaml")
+validate(config, schema="../configuration/config.schema.yaml")
 
 ##--- load and validate protein sequences and hmmer protein domains files ---##
 proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("Samples", drop=False)
 proteins.index.names = ["Index"]
-validate(proteins, schema = "../03_config/Protein_database.schema.yaml")
+validate(proteins, schema = "../configuration/Protein_database.schema.yaml")
 
 ##--- load and validate genome sequences and annotations ---##
 genomes = pd.read_csv(config["target_genomes"], sep="\t", dtype = str).set_index("Sample", drop=False)
 genomes.index.names = ["Index"]
-validate(genomes, schema = "../03_config/target_genomes.schema.yaml")
+validate(genomes, schema = "../configuration/target_genomes.schema.yaml")
 
 ##--- helper functions ---##
 #This function retrieves protein sequences and protein domains input files from proteins object
@@ -30,7 +30,6 @@ def protein_DB_input(wildcards):
 def genome_input(wildcards):
     return {
         "fasta": genomes.loc[wildcards.sample, "FASTA"], 
-        "gff": genomes.loc[wildcards.sample, "GFF"]
     }
         
 #This function returns species abbreviation   
@@ -40,20 +39,9 @@ def genome_key(wildcards):
     }
 
 #Output functions for bitacora pipeline
-#rule 1
-def copy_protein_data_output(wildcards):
-    return expand("04_output/{DB}_db.fasta", DB=proteins['Samples'])
-#rule 2
-def copy_genomic_data_output(wildcards):
-    return expand("04_output/{sample}/{sample}.gff", sample=genomes['Sample'])
-#rule 3
-def gff2fasta_output(wildcards):
-    return expand("04_output/{sample}/{sample}_convert.pep.fasta", sample=genomes['Sample'])
-#rule 4
-def isoforms_output(wildcards):
-    return expand("04_output/{sample}/{sample}_convert.pep_noiso.fasta", sample=genomes['Sample'])
-#rule 5
+def link_protein_data_output(wildcards):
+    return expand("output/00_protein_sequences/{DB}_db.fasta", DB=proteins['Samples'])
 def bitacora_output(wildcards):
-    return expand("04_output/{sample}/bitacora_successful.txt", sample=genomes['Sample'])
+    return expand("output/{sample}/bitacora_successful.txt", sample=genomes['Sample'])
 
     
