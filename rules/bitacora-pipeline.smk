@@ -3,11 +3,12 @@ rule bitacora:
     conda:
         os.path.join(workflow.basedir, config["env_bitacora"])
     input:
-        unpack(genome_input)
+        unpack(genome_input),
+        config["bitacora"] + "/runBITACORA_command_line.sh"
     output:
         config["outdir"] + "/{sample}/bitacora_successful.txt"
     params:
-        BITA = os.path.join(workflow.basedir,config["BITACORA"]) #commandline script for bitacora
+        BITA = os.path.join(workflow.basedir,config["BITACORA"]) # path to commandline script for bitacora
         mode = "genome", #bitacora mode
         DB = os.path.join(workflow.basedir,config["outdir"]), #path to folder containing databases
         name = genome_key, #prefix for output
@@ -23,7 +24,7 @@ rule bitacora:
         l = config["min_length"], #Minimum length to retain identified genes
         z = config["retain_genes"], #Retain all annotated genes, without any clustering of identical copies
         c = config["clean_out"], #Clean output files
-        outdir = "04_output/{sample}" #output directory
+        outdir = config["outdir"] #output directory
     threads: config["cpus"] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in full mode"

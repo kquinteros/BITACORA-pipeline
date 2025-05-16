@@ -1,4 +1,4 @@
-###--- copy to protein sequences and protein domains ---###
+###--- create softlink to protein sequences and protein domains ---###
 rule link_protein_data:
     input:
         unpack(protein_DB_input)
@@ -12,19 +12,19 @@ rule link_protein_data:
         ln -sf {input.seq} {output.db}
         ln -sf {input.dom} {output.hmm}
         """
-
+###--- down github repo for BITACORA ---###
 rule download_bitacora:
     input:
         db= config["outdir"] + "/{sample}_db.fasta",
     output:
-        config["bitacora"] + "README.md"  # or any file that confirms it's downloaded
+        config["bitacora"] + "runBITACORA_command_line.sh"  # or any file that confirms it's downloaded
     params:
-        url = "https://github.com/molevol-ub/bitacora.git"
+        config["bitacora_repo_url"]
     message:
         "Cloning BITACORA from GitHub if not already present"
     shell:
         """
         if [ ! -d bin/bitacora ]; then
-            git clone {params.url} {output}
+            git clone {params} {output}
         fi
         """
