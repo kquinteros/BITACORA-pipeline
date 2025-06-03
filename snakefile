@@ -19,6 +19,5 @@ include: 'rules/bitacora-pipeline.smk' #contains the main rules for bitacora pip
 #universal rule that checks the output of every rule  
 rule all:
     input:
-        link_protein_data_output,
         bitacora_output
         

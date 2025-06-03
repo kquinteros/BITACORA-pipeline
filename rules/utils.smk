@@ -8,7 +8,7 @@ from smart_open import open
 validate(config, schema="../configuration/config.schema.yaml")
 
 ##--- load and validate protein sequences and hmmer protein domains files ---##
-proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("Samples", drop=False)
+proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("Sample", drop=False)
 proteins.index.names = ["Index"]
 validate(proteins, schema = "../configuration/Protein_database.schema.yaml")
 
@@ -26,10 +26,15 @@ def protein_DB_input(wildcards):
         "dom": proteins.loc[wildcards.sample, "Domain"]
   }
 
+def protein_min_length(wildcards):
+    return {
+        "min_length": proteins.loc[wildcards.sample, "Min_length"]
+    }
+
 #This function retrieves genome seqences and annotations from genomes object
 def genome_input(wildcards):
     return {
-        "fasta": genomes.loc[wildcards.sample, "FASTA"], 
+        "fasta": genomes.loc[wildcards.sample, "FASTA"]
     }
         
 #This function returns species abbreviation   
@@ -39,9 +44,6 @@ def genome_key(wildcards):
     }
 
 #Output functions for bitacora pipeline
-def link_protein_data_output(wildcards):
-    return expand("output/00_protein_sequences/{DB}_db.fasta", DB=proteins['Samples'])
 def bitacora_output(wildcards):
-    return expand("output/{sample}/bitacora_successful.txt", sample=genomes['Sample'])
-
+    return expand("{outdir}/GeMoMa/{sample}/bitacora_successful.txt", sample=genomes['Sample'], outdir=config["outdir"])
     

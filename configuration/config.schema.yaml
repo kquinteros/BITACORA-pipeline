@@ -13,19 +13,17 @@ properties:
 required:
   - protein_table
   - target_genomes
+  - bitacora_repo_url
   - BITACORA
   - scripts
   - GeMoMa
+  - tools 
   - blast
   - hmmer
+  - use_blast
   - maxintron
   - evalue
-  - tools 
-  - retain_genes
   - env-bitacora
-  - use_blast
-  - algorithm
-  - min_length
   - clean_out
-  - addition_filter
-  - num_threads
+  - cpus
+  - env-GeMoMA

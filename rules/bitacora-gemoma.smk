@@ -1,33 +1,34 @@
-###--- run bitacora in genome mode---###   
-rule bitacora:
+###--- run bitacora in genome mode using gemoma---###   
+rule bitacora-gemoma:
     conda:
         os.path.join(workflow.basedir, config["env_bitacora"])
     input:
-        unpack(genome_input),
-        config["bitacora"] + "/runBITACORA_command_line.sh"
+        unpack(genome_input)
     output:
-        config["outdir"] + "/{sample}/bitacora_successful.txt"
+        config["outdir"] + "GeMoMA/{sample}/bitacora_successful.txt"
     params:
         BITA = os.path.join(workflow.basedir,config["BITACORA"]) # path to commandline script for bitacora
         mode = "genome", #bitacora mode
         DB = os.path.join(workflow.basedir,config["outdir"]), #path to folder containing databases
         name = genome_key, #prefix for output
-        blast = config["use_blast"], #conduct BLASTP (T or F)
-        algorithm = config["algorithm"], #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
+        blast = config["use_blast"], #conduct an additional BLASTP search in addition to HMMER to validate novel genes
+        algorithm = 'gemoma', #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
         sp = os.path.join(workflow.basedir, config["scripts"]), #path to bitacora scripts 
         gp = config["GeMoMa"], #path to GeMoMa executable
         bp = config["blast"], #path to BLAST executable
         hp = config["hmmer"], #path hmmer executable
         e = config["evalue"], #e-value
         i = config["maxintron"], #maximum intron length 
-        r = config["addition_filter"], #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
-        l = config["min_length"], #Minimum length to retain identified genes
-        z = config["retain_genes"], #Retain all annotated genes, without any clustering of identical copies
+        r = F, #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
+        l = protein_min_length, #Minimum length to retain identified genes
+        z = T, #Retain all annotated genes, without any clustering of identical copies (if T ignore -r and -l)
         c = config["clean_out"], #Clean output files
-        outdir = config["outdir"] #output directory
+        outdir = config["outdir"] + "GeMoMA/{sample}/" #output directory
     threads: config["cpus"] #number of threads avaliable per bitacora run
     message:
-        "Running BITACORA in full mode"
+        "Running BITACORA in genome mode using GeMoMa"
+    log: 
+        config["outdir"] + "GeMoMa/{sample}/" +"log.out"
     shell:
         """
         cd {params.outdir}
@@ -38,3 +39,6 @@ rule bitacora:
         -l {params.l} -z {params.z} -c {params.c}
         touch bitacora_successful.txt
         """
+
+
+

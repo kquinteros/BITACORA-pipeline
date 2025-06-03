@@ -1,15 +1,16 @@
 # BITACORA-SNAKEMAKE-PIPELINE
 
-Snakemake workflow for identification and annotation of Insect Chemosensory gene families in genome assemblies using BITACORA. This pipeline is set up to run BITACORA in "full mode" which requires a genome assembly and genome annotation file. 
+This pipeline runs BITACORA in “genome mode,” requiring a genome assembly along with a curated database of protein sequences and corresponding HMM domain profiles for targeted annotation of chemosensory gene families.
 
-You can find more information about Bitacora on their [GitHub](https://github.com/molevol-ub/bitacora).
+You can find more information about Bitacora on their [GitHub repo](https://github.com/molevol-ub/bitacora).
 
 Please make sure to cite the original Bitacora paper when using this pipeline
 
 Vizueta, J., Sánchez-Gracia, A., Rozas, J. (2020). BITACORA: A comprehensive tool for the identification and annotation of gene families in genome assemblies. Molecular Ecology Resources. 20: 1445-1452. doi:10.1111/1755-0998.13202.
 
 ## Getting started
-1. Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package management system and [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow management system. It's recommended that users have a dedicated snakemake environment. We have provided some commandline prompts (assuming conda is installed) for the installation of Snakmake.
+Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package management system and [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow management system. It's recommended that users have a dedicated snakemake environment. We have provided some commandline prompts (assuming conda is installed) for the installation of Snakmake.
+
 ```python 
 conda install -n base -c conda-forge mamba
 conda activate base
@@ -17,67 +18,44 @@ mamba create -c conda-forge -c bioconda -n snakemake snakemake
 conda activate snakemake
 snakemake --help
 ```
-2. Clone BITACORA-pipeline repository. 
-```
-cd /PATH/TO/DESIRED/DIRECTORY
-git clone https://github.com/kquinteros/BITACORA-pipeline.git
-```
-3. Clone BITACORA repository within the BITACORA-pipeline directory. Read BITACORA computational requirement and documentation [here](https://github.com/molevol-ub/bitacora). 
-```
-cd /PATH/TO/BITACORA-pipeline/
-git clone https://github.com/molevol-ub/bitacora.git
-```
-   BITACORA repository can also be cloned outside of the ```BITACORA-pipeline/```. In that case create a softlink within the BITACORA-pipeline
-```
-cd /PATH/TO/DESIRED/DIRECTORY/
-git clone https://github.com/molevol-ub/bitacora.git
-cd /PATH/TO/BITACORA-pipeline/
-ln -s /PATH/TO/bitacora-repository/ bitacora
-```
-4. Download [GeMoMa v1.9](http://www.jstacs.de/download.php?which=GeMoMa) zip file within the BITACORA-pipeline directory. 
 
-```
-cd /PATH/TO/BITACORA-pipeline/
-mkdir GeMoMa-1/
-cd GeMoMa-1/
-wget -O GeMoMa.zip http://www.jstacs.de/download.php?which=GeMoMa
-unzip GeMoMa.zip
-```
-   As mentioned above GeMoMA can also be installed outside of the ```BITACORA-pipeline/```. You'll just need to create a softline to to the GeMoMa install directory. 
-```
-cd /PATH/TO/DESIRED/DIRECTORY/
-mkdir GeMoMa/
-cd GeMoMa/
-wget -O GeMoMa.zip http://www.jstacs.de/download.php?which=GeMoMa
-unzip GeMoMa.zip
-cd /PATH/TO/BITACORA-pipeline/
-ln -s /PATH/TO/GeMoMA/ GeMoMa/
-```   
 ## Setting up configuration file
-The ```03_config/config.yaml``` file allows you to adjust BITACORA parameters. Currently, all parameters are set to the default values. You can read the BITACORA documentation for more information. 
+The ```configuration/config.yaml``` file allows you to adjust BITACORA parameters. Currently, all parameters are set to the default values. You can read the BITACORA documentation for more information. 
 
 ```python
-##--- Path To Executable And Dependencies ---#
-BITACORA: "bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-scripts: "bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-GeMoMa: "GeMoMa/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-tools: "bitacora/Scripts/Tools" #Bitacora tools
+# non-slurm profile defaults
+use-conda: True
+printshellcmds: True
+
+##--- Protein sequence, protein domains and target genomes --##
+protein_table: 'configuration/protein_database.tsv'
+target_genomes: 'configuration/target_genomes.tsv'
+
+##--- Path To Executable And Dependencies ---##
+bitacora_repo_url: "https://github.com/YourUsername/BITACORA.git"
+BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+GeMoMa: "$CONDA_PREFIX/bin/GeMoMa" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+tools: "bin/bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
 
 ##--- setting for BITACORA ---##
 use_blast: "T" #conduct BLASTP (T or F)
-maxintron: 15000 #Maximum length of an intron
 algorithm: "gemoma" #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
-addition_filter: "T" #Conduct an additional filtering of the annotations if True. Specify 'T' or 'F' 
+maxintron: 15000 #Maximum length of an intron if using proximity algorithm
+addition_filter: "T" #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
 evalue: 1e-5 #Evalue for BLAST and HMMER
 min_length: 30 #Minimum length to retain identified genes
-tools: "bitacora/Scripts/Tools" #Bitacora tools
-retain_genes: "T" #Retain all annotated genes, without any clustering of identical copies
+retain_genes: "F" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
+outdir: ""
 
 ##--- computational resources ---##
-num_threads: 10 #number of threads avaliable per bitacora run 
+cpus: 48 #number of threads avaliable per bitacora run 
+
+##--- conda environments --##
+env-GeMoMA: "envs/GeMoMa.yaml"
 ```
 
 ## Input data
@@ -86,18 +64,18 @@ num_threads: 10 #number of threads avaliable per bitacora run
 
 2. ```00_data/01_protein_domains``` contain HMM profiles which are found in InterPro or PFAM databases associated to known protein domains.
 
-3. ```00_data/01_protein_domains``` contains genome assemblies and their associated genome annotations. You can place your own genomes (fasta) and annotations (gff) here. 
+3. ```00_data/02_target_genome``` contains genome assemblies and their associated genome annotations. You can place your own genomes (fasta) and annotations (gff) here. 
 
 
 ### Input data configuration files
 
-1. ```target_genomes.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Sample" column if you have more than one target genome. 
+1. ```configuration/target_genomes.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Sample" column if you have more than one target genome. 
 
-| Sample | Key  | Species         | FASTA                                                                       | GFF                                                                                     |
-|--------|------|-----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| S001   | Dmel | D. melanogaster | 00_data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa | 00_data/02_target_genome/rosophila_melanogaster.BDGP6.95.chromosome.2R.reformatted.gff3 |
+| Sample | Key  | Species         | FASTA                                                                       | 
+|--------|------|-----------------|-----------------------------------------------------------------------------|
+| S001   | Dmel | D. melanogaster | 00_data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa |
 
-2. ```03_config/protein_database.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Samples" column. 
+2. ```configuration/protein_database.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Samples" column. 
 
 | Samples | Gene_family                   | Domain                                  | Sequences                                 |
 |---------|-------------------------------|-----------------------------------------|-------------------------------------------|
@@ -115,10 +93,10 @@ Be sure you are in the BITACORA-pipeline directory. Activate your snakemake envi
 ```
 cd /PATH/TO/BITACORA-pipeline/
 conda activate snakemake 
-snakemake -s snakefile --cores {Number_Cores} --use-conda 
+snakemake -s snakefile --use-conda 
 ```
 Some workflows can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
 
 ```
-nohup snakemake -s snakefile --cores {Number_Cores} --use-conda > bitacora_fullmode.out 2>&1 &
+nohup snakemake -s snakefile --use-conda > bitacora_fullmode.out 2>&1 &
 ```

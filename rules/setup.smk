@@ -24,7 +24,7 @@ rule download_bitacora:
         "Cloning BITACORA from GitHub if not already present"
     shell:
         """
-        if [ ! -d bin/bitacora ]; then
+        if [ ! -d {output} ]; then
             git clone {params} {output}
         fi
         """

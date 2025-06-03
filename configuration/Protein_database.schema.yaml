@@ -4,7 +4,7 @@ description: Data table of all protein sequences for each chemosensroy gene fami
 
 # columns that the 04_config/ref_genomes.tsv file can have and which type they should be
 properties:
-  Samples:
+  Sample:
     type: string
     description: wildcard symbol for each protein family
   Gene_family:
@@ -19,7 +19,7 @@ properties:
 
 # columns that the config/ref_genomes.tsv file must have to pass schema validation
 required:
-  - Samples
+  - Sample
   - Gene_family
   - Domain
   - Sequences

@@ -9,6 +9,7 @@ protein_table: 'configuration/protein_database.tsv'
 target_genomes: 'configuration/target_genomes.tsv'
 
 ##--- Path To Executable And Dependencies ---##
+bitacora_repo_url: "https://github.com/YourUsername/BITACORA.git"
 BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 GeMoMa: "$CONDA_PREFIX/bin/GeMoMa" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
@@ -17,13 +18,9 @@ blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
 
 ##--- setting for BITACORA ---##
-use_blast: "T" #conduct BLASTP (T or F)
-algorithm: "gemoma" #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
-maxintron: 15000 #Maximum length of an intron if using proximity algorithm
-addition_filter: "T" #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
+use_blast: "T" #conduct an additional BLASTP search in addition to HMMER to validate novel genes
+maxintron: 15000 #Maximum length of an intron ( needed for proximity algorithm)
 evalue: 1e-5 #Evalue for BLAST and HMMER
-min_length: 30 #Minimum length to retain identified genes
-retain_genes: "F" #Retain all annotated genes, without any clustering of identical copies
 clean_out: "T" #Clean output files
 outdir: ""
 
