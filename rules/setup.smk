@@ -12,19 +12,3 @@ rule link_protein_data:
         ln -sf {input.seq} {output.db}
         ln -sf {input.dom} {output.hmm}
         """
-###--- down github repo for BITACORA ---###
-rule download_bitacora:
-    input:
-        db= config["outdir"] + "/{sample}_db.fasta",
-    output:
-        config["bitacora"] + "runBITACORA_command_line.sh"  # or any file that confirms it's downloaded
-    params:
-        config["bitacora_repo_url"]
-    message:
-        "Cloning BITACORA from GitHub if not already present"
-    shell:
-        """
-        if [ ! -d {output} ]; then
-            git clone {params} {output}
-        fi
-        """

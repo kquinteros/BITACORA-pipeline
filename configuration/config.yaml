@@ -9,7 +9,6 @@ protein_table: 'configuration/protein_database.tsv'
 target_genomes: 'configuration/target_genomes.tsv'
 
 ##--- Path To Executable And Dependencies ---##
-bitacora_repo_url: "https://github.com/YourUsername/BITACORA.git"
 BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 GeMoMa: "$CONDA_PREFIX/bin/GeMoMa" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
