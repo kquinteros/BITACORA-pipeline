@@ -13,7 +13,6 @@ properties:
 required:
   - protein_table
   - target_genomes
-  - bitacora_repo_url
   - BITACORA
   - scripts
   - GeMoMa
