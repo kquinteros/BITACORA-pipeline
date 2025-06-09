@@ -5,7 +5,7 @@ rule bitacora_gemoma:
     input:
         unpack(genome_input)
     output:
-         success_flag = config["outdir"] + "GeMoMA/{sample}/bitacora_gemoma_successful.txt
+         success_flag = config["outdir"] + "GeMoMa/{sample}/bitacora_gemoma_successful.txt"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
