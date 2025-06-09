@@ -20,5 +20,7 @@ include: 'rules/bitacora-gemoma.smk' #contains the main rules for bitacora pipel
 #universal rule that checks the output of every rule  
 rule all:
     input:
+        copy_protein_domains_output,
+        copy_protein_data_output,
         bitacora_output
         
