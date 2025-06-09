@@ -1,7 +1,7 @@
 ###--- run bitacora in genome mode using gemoma---###   
-rule bitacora-gemoma:
+rule bitacora_gemoma:
     conda:
-        os.path.join(workflow.basedir, config["env_bitacora"])
+        os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
         unpack(genome_input)
     output:
