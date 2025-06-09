@@ -21,7 +21,7 @@ use_blast: "T" #conduct an additional BLASTP search in addition to HMMER to vali
 maxintron: 15000 #Maximum length of an intron ( needed for proximity algorithm)
 evalue: 1e-5 #Evalue for BLAST and HMMER
 clean_out: "T" #Clean output files
-outdir: ""
+outdir: "output"
 
 ##--- computational resources ---##
 cpus: 48 #number of threads avaliable per bitacora run 

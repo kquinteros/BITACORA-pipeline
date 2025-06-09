@@ -48,7 +48,7 @@ def bitacora_output(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/bitacora_successful.txt", sample=genomes['Sample'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
-    return expand("{outdir}/{DB}_db.fasta", DB=proteins['Samples'], outdir=config["outdir"])
+    return expand("{outdir}/{DB}_db.fasta", DB=proteins['Sample'], outdir=config["outdir"])
 
 def copy_protein_domains_output(wildcards):
-    return expand("{outdir}/{DB}_db.hmm", DB=proteins['Samples'], outdir=config["outdir"])
+    return expand("{outdir}/{DB}_db.hmm", DB=proteins['Sample'], outdir=config["outdir"])
