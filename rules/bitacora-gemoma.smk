@@ -19,9 +19,9 @@ rule bitacora_gemoma:
         hp = config["hmmer"], #path hmmer executable
         e = config["evalue"], #e-value
         i = config["maxintron"], #maximum intron length 
-        r = F, #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
+        r = "F", #Conduct an additional filtering of the annotations if -r T. Specify 'T' or 'F' 
         l = protein_min_length, #Minimum length to retain identified genes
-        z = T, #Retain all annotated genes, without any clustering of identical copies (if T ignore -r and -l)
+        z = "T", #Retain all annotated genes, without any clustering of identical copies (if T ignore -r and -l)
         c = config["clean_out"], #Clean output files
         outdir = config["outdir"] + "GeMoMA/{sample}/" #output directory
     threads: config["cpus"] #number of threads avaliable per bitacora run
