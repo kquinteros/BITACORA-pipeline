@@ -45,7 +45,7 @@ def genome_key(wildcards):
 
 #Output functions for bitacora pipeline
 def bitacora_output(wildcards):
-    return expand("{outdir}/GeMoMa/{sample}/bitacora_successful.txt", sample=genomes['Sample'], outdir=config["outdir"])
+    return expand("{outdir}/GeMoMa/{sample}/bitacora_gemoma_successful.txt", sample=genomes['Sample'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
     return expand("{outdir}/{DB}_db.fasta", DB=proteins['Sample'], outdir=config["outdir"])
