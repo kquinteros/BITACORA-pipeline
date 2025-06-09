@@ -7,7 +7,7 @@ rule bitacora_gemoma:
     output:
         config["outdir"] + "GeMoMA/{sample}/bitacora_successful.txt"
     params:
-        BITA = os.path.join(workflow.basedir,config["BITACORA"]) # path to commandline script for bitacora
+        BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
         DB = os.path.join(workflow.basedir,config["outdir"]), #path to folder containing databases
         name = genome_key, #prefix for output
