@@ -22,7 +22,7 @@ required:
   - use_blast
   - maxintron
   - evalue
-  - env-bitacora
   - clean_out
+  - outdir
   - cpus
   - env-GeMoMA
