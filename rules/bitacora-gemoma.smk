@@ -23,13 +23,13 @@ rule bitacora_gemoma:
         l = 30, #Minimum length to retain identified genes
         z = "T", #Retain all annotated genes, without any clustering of identical copies (if T ignore -r and -l)
         c = config["clean_out"], #Clean output files
-        outdir = config["outdir"] + "GeMoMA/{sample}/" #output directory
+        outdir = config["outdir"] + "/GeMoMA/{sample}/" #output directory
     threads: 
         config["cpus"] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in genome mode using GeMoMa"
     log: 
-        config["outdir"] + "GeMoMa/{sample}/" +"log.out"
+        config["outdir"] + "/GeMoMa/{sample}/" +"log.out"
     shell:
         """
         cd {params.outdir}
