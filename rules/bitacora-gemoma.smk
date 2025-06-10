@@ -24,7 +24,8 @@ rule bitacora_gemoma:
         z = "T", #Retain all annotated genes, without any clustering of identical copies (if T ignore -r and -l)
         c = config["clean_out"], #Clean output files
         outdir = config["outdir"] + "GeMoMA/{sample}/" #output directory
-    threads: config["cpus"] #number of threads avaliable per bitacora run
+    threads: 
+        config["cpus"] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in genome mode using GeMoMa"
     log: 
