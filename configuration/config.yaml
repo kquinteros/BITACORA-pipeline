@@ -17,7 +17,7 @@ blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
 
 ##--- setting for BITACORA ---##
-use_blast: "T" #conduct an additional BLASTP search in addition to HMMER to validate novel genes
+use_blast: "F" #conduct an additional BLASTP search in addition to HMMER to validate novel genes
 maxintron: 15000 #Maximum length of an intron ( needed for proximity algorithm)
 evalue: 1e-5 #Evalue for BLAST and HMMER
 clean_out: "T" #Clean output files
