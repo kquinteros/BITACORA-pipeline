@@ -5,12 +5,13 @@ rule link_protein_data:
     output:
         db= config["outdir"] + "/{db}_db.fasta",
         hmm = config["outdir"] + "/{db}_db.hmm"
+    params: 
+         config['BITACORA'] + "/runBITACORA_command_line.sh"
     message:
         "Linking protein sequences and HMM domain profiles for Bitacora genome-mode analysis"
     shell:
         """
-        echo "Copying protein databases for chemosensory {wildcards.db}"
-        cp {input.seq} {output.db}
-        cp {input.dom} {output.hmm}
-        echo "Successfully copied files"
+        ln -s {input.seq} {output.db}
+        ln -s {input.dom} {output.hmm}
+        chmod +x {params}
         """
