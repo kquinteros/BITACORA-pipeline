@@ -5,7 +5,7 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - gemoma
+  - gemoma=1.9
   - hmmer
   - blast
   - mmseqs2
