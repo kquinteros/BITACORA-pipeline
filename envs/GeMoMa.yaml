@@ -1,11 +1,10 @@
 name: GeMoMa_v19
 channels:
-  - bioconda
-  - r
-  - defaults
   - conda-forge
+  - bioconda
+  - defaults
 dependencies:
-  - gemoma=1.9
+  - gemoma=1.9=hdfd78af_0
   - hmmer
   - blast
   - mmseqs2
