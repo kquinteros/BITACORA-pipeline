@@ -19,7 +19,7 @@ properties:
 
 # columns that the config/ref_genomes.tsv file must have to pass schema validation
 required:
-  - Sample
+  - DB
   - Gene_family
   - Domain
   - Sequences

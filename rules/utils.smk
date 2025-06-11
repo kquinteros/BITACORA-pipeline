@@ -22,13 +22,13 @@ validate(genomes, schema = "../configuration/target_genomes.schema.yaml")
 #Attribute information is also avaliable
 def protein_DB_input(wildcards):
     return {
-        "seq": proteins.loc[wildcards.sample, "Sequences"], 
-        "dom": proteins.loc[wildcards.sample, "Domain"]
+        "seq": proteins.loc[wildcards.db, "Sequences"], 
+        "dom": proteins.loc[wildcards.db, "Domain"]
   }
 
 def protein_min_length(wildcards):
     return {
-        "min_length": proteins.loc[wildcards.sample, "Min_length"]
+        "min_length": proteins.loc[wildcards.db, "Min_length"]
     }
 
 #This function retrieves genome seqences and annotations from genomes object
@@ -45,10 +45,10 @@ def genome_key(wildcards):
 
 #Output functions for bitacora pipeline
 def bitacora_output(wildcards):
-    return expand("{outdir}/GeMoMa/{sample}/bitacora_gemoma_successful.txt", sample=genomes['Sample'], outdir=config["outdir"])
+    return expand("{outdir}/GeMoMa/{sample}/{db}_genomic_and_annotated_proteins_trimmed.fasta", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
-    return expand("{outdir}/{DB}_db.fasta", DB=proteins['Sample'], outdir=config["outdir"])
+    return expand("{outdir}/{db}_db.fasta", db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_domains_output(wildcards):
-    return expand("{outdir}/{DB}_db.hmm", DB=proteins['Sample'], outdir=config["outdir"])
+    return expand("{outdir}/{db}_db.hmm", db=proteins['DB'], outdir=config["outdir"])

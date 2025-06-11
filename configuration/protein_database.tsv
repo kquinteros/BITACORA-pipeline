@@ -1,4 +1,4 @@
-Sample	Gene_family	Domain	Sequences	Min_length
+DB	Gene_family	Domain	Sequences	Min_length
 P1	Olfactory Receptors	data/01_protein_domains/7tm_6.hmm	data/00_protein_sequences/OR_db.fasta	240
 P2	Gustatory Receptors	data/01_protein_domains/7tm_7.hmm	data/00_protein_sequences/GR_7tm7_db.fasta	250
 P3	Gustatory Receptors	data/01_protein_domains/Trehalose_recp.hmm	data/00_protein_sequences/GR_tre_db.fasta	200

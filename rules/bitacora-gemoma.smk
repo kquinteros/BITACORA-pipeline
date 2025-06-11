@@ -3,9 +3,11 @@ rule bitacora_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
-        unpack(genome_input)
+        unpack(genome_input),
+        db= config["outdir"] + "/{db}_db.fasta",
+        hmm = config["outdir"] + "/{db}_db.hmm"
     output:
-         success_flag = config["outdir"] + "/GeMoMa/{sample}/bitacora_gemoma_successful.txt"
+         config["outdir"] + "/GeMoMa/{sample}/{db}_genomic_and_annotated_proteins_trimmed.fasta"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
@@ -28,18 +30,18 @@ rule bitacora_gemoma:
         config["cpus"] #number of threads avaliable per bitacora run
     message:
         "Running BITACORA in genome mode using GeMoMa"
-    log: 
-        config["outdir"] + "/GeMoMa/{sample}/" +"log.out"
+    log:
+        config["outdir"] + "/GeMoMa/{sample}/bitacora_{db}.out"
     shell:
         """
         cd {params.outdir}
+        echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
         {params.BITA}/runBITACORA_command_line.sh \
-        -m {params.mode} -a {params.algorithm} -q {params.DB} -g {input.fasta} \
+        -m {params.mode} -a {params.algorithm} -q {input.db} -g {input.fasta} \
         -n {params.name} -sp {params.sp} -gp {params.gp} -bp {params.bp} \
         -hp {params.bp} -t {threads} -b {params.blast} -e {params.e} -i {params.i} -r {params.r} \
         -l {params.l} -z {params.z} -c {params.c}
-        touch bitacora_gemoma_successful.txt
+        echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
         """
-
 
 
