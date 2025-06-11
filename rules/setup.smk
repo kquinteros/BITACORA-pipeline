@@ -9,6 +9,6 @@ rule link_protein_data:
         "Linking protein sequences and HMM domain profiles for Bitacora genome-mode analysis"
     shell:
         """
-        ln -sf {input.seq} {output.db}
-        ln -sf {input.dom} {output.hmm}
+        ln -s {input.seq} {output.db}
+        ln -s {input.dom} {output.hmm}
         """
