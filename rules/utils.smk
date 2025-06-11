@@ -17,6 +17,9 @@ genomes = pd.read_csv(config["target_genomes"], sep="\t", dtype = str).set_index
 genomes.index.names = ["Index"]
 validate(genomes, schema = "../configuration/target_genomes.schema.yaml")
 
+# Convert relative FASTA paths to absolute paths
+genomes["FASTA"] = genomes["FASTA"].apply(os.path.abspath)
+
 ##--- helper functions ---##
 #This function retrieves protein sequences and protein domains input files from proteins object
 #Attribute information is also avaliable
