@@ -37,7 +37,7 @@ rule bitacora_gemoma:
         cd {params.outdir}
         echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
         {params.BITA}/runBITACORA_command_line.sh \
-        -m {params.mode} -a {params.algorithm} -q {input.db} -g {input.fasta} \
+        -m {params.mode} -a {params.algorithm} -q {params.DB} -g {input.fasta} \
         -n {params.name} -sp {params.sp} -gp {params.gp} -bp {params.bp} \
         -hp {params.bp} -t {threads} -b {params.blast} -e {params.e} -i {params.i} -r {params.r} \
         -l {params.l} -z {params.z} -c {params.c}
