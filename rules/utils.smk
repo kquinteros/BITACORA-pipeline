@@ -8,7 +8,7 @@ from smart_open import open
 validate(config, schema="../configuration/config.schema.yaml")
 
 ##--- load and validate protein sequences and hmmer protein domains files ---##
-proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("Sample", drop=False)
+proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("DB", drop=False)
 proteins.index.names = ["Index"]
 validate(proteins, schema = "../configuration/Protein_database.schema.yaml")
 
