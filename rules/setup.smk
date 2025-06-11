@@ -9,6 +9,8 @@ rule link_protein_data:
         "Linking protein sequences and HMM domain profiles for Bitacora genome-mode analysis"
     shell:
         """
-        ln -s {input.seq} {output.db}
-        ln -s {input.dom} {output.hmm}
+        echo "Copying protein databases for chemosensory {db}"
+        cp {input.seq} {output.db}
+        cp {input.dom} {output.hmm}
+        echo "Successfully copied files"
         """
