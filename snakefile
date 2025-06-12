@@ -22,5 +22,6 @@ rule all:
     input:
         copy_protein_domains_output,
         copy_protein_data_output,
-        bitacora_output
+        bitacora_gemoma_output,
+        bitacora_proximity_output
         

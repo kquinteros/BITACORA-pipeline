@@ -47,8 +47,11 @@ def genome_key(wildcards):
     }
 
 #Output functions for bitacora pipeline
-def bitacora_output(wildcards):
+def bitacora_gemoma_output(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
+
+def bitacora_proximity_output(wildcards):
+    return expand("{outdir}/Proximity/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
     return expand("{outdir}/{db}_db.fasta", db=proteins['DB'], outdir=config["outdir"])

@@ -14,7 +14,7 @@ Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package
 ```python 
 conda install -n base -c conda-forge mamba
 conda activate base
-conda create -c conda-forge -c bioconda -n snakemake snakemake
+mamba create -c conda-forge -c bioconda -n snakemake snakemake
 conda activate snakemake
 snakemake --help
 ```
@@ -93,5 +93,5 @@ snakemake -s snakefile --use-conda
 Some workflows can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
 
 ```
-nohup snakemake -s snakefile --use-conda > bitacora_fullmode.out 2>&1 &
+nohup snakemake -s snakefile --use-conda --cores {Num} > bitacora_genome_mode.out 2>&1 &
 ```
