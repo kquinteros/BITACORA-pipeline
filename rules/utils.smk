@@ -48,7 +48,7 @@ def genome_key(wildcards):
 
 #Output functions for bitacora pipeline
 def bitacora_output(wildcards):
-    return expand("{outdir}/GeMoMa/{sample}/{db}_genomic_and_annotated_proteins_trimmed.fasta", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
+    return expand("{outdir}/GeMoMa/{sample}/{db}tblastn_parsed_list_genomic_positions.bed", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
     return expand("{outdir}/{db}_db.fasta", db=proteins['DB'], outdir=config["outdir"])

@@ -7,7 +7,7 @@ rule bitacora_gemoma:
         db= config["outdir"] + "/{db}_db.fasta",
         hmm = config["outdir"] + "/{db}_db.hmm"
     output:
-         config["outdir"] + "/GeMoMa/{sample}/{db}_genomic_and_annotated_proteins_trimmed.fasta"
+         config["outdir"] + "/GeMoMa/{sample}/{db}tblastn_parsed_list_genomic_positions.bed"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
