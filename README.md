@@ -34,7 +34,7 @@ target_genomes: 'configuration/target_genomes.tsv'
 ##--- Path To Executable And Dependencies ---##
 BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-GeMoMa: "$CONDA_PREFIX/bin/GeMoMa" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+GeMoMa: "$CONDA_PREFIX/share/gemoma-1.9-0/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 tools: "bin/bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
 hmmer: "$CONDA_PREFIX/bin/" #Path to HMMER executable
@@ -68,7 +68,7 @@ env-GeMoMA: "envs/GeMoMa.yaml"
 
 | Sample | Key  | Species         | FASTA                                                                       | 
 |--------|------|-----------------|-----------------------------------------------------------------------------|
-| S001   | Dmel | D. melanogaster | 00_data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa |
+| S001   | Dmel | D. melanogaster | data/02_target_genome/Drosophila_melanogaster.BDGP6.dna.chromosome.2R.fa |
 
 2. ```configuration/protein_database.tsv``` This file is necessary for the snakemake workflow. Edit the table to your needs. Just be sure to us sequential sample ID for the "Samples" column. 
 
