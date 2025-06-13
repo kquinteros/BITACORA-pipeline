@@ -23,6 +23,10 @@ evalue: 1e-5 #Evalue for BLAST and HMMER
 clean_out: "T" #Clean output files
 outdir: "output"
 
+##--- sequence clustering ---##
+identity_percentage: 98
+
+
 ##--- computational resources ---##
 cpus: 48 #number of threads avaliable per bitacora run 
 
