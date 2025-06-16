@@ -8,7 +8,7 @@ rule bitacora_gemoma:
         hmm = config["outdir"] + "/{db}_db.hmm"
     output:
          bed = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed",
-         fasta = config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
+         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
          gff =  config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
@@ -60,7 +60,7 @@ rule identify_similar_sequence_clusters_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
-        fasta = config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta"
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta"
     output:
         config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta"
     params:
@@ -72,13 +72,18 @@ rule identify_similar_sequence_clusters_gemoma:
         config["cpus"] #Threads to use in blastp search
     shell:
         """
+        #mkdir output direcotry
         mkdir -p {params.dir}
+
+        #check if input file is empty
         if [[ ! -s {input.fasta} ]]; then
             echo "Skipping: {input.fasta} is empty."
-            touch {output}
+            fasta_file=$(basename "{output}")
+            touch "$fasta_file"
         else
             cd {params.dir}
-            perl {params.tools}/identify_similar_sequence_clusters.pl {input.fasta} {params.length} {params.ident} {threads} 
+            fasta_file=$(basename "{input.fasta}")
+            perl {params.tools}/identify_similar_sequence_clusters.pl ../"$fasta_file" {params.length} {params.ident} {threads} 
         fi
         """
 
@@ -86,27 +91,32 @@ rule additional_filter_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
-        fasta = config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
-        gff =  config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
+        gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
     output:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta",
         gff = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed_idseqsclustered.gff3"
     params:
         tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
-        dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
+        dir = config["outdir"] + "/GeMoMa/{sample}/{db}/", #Directory for output
         length = lambda wildcards: protein_min_length(wildcards)["min_length"], #Minimum length to retain identified genes
         ident = config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
     shell:
         """
-        mkdir -p {params.dir}
+        #check if input file is empty
         if [[ ! -s {input.fasta} ]]; then
             echo "Skipping: {input.fasta} is empty."
-            touch {output.fasta}
-            touch (output.gff)
+            fasta_file=$(basename "{output.fasta}")
+            gff_file=$(basename"{output.gff"})
+
+            touch "$fasta_file"
+            touch "$gff_file"
         else
             cd {params.dir}
-            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl {input.fasta} {input.gff} {params.length} {params.ident} {threads}
+            fasta_file=$(basename "{input.fasta}")
+            gff_file=$(basename"{input.gff"})
+            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$fasta_file" ../"$gff_file" {params.length} {params.ident} {threads}
         fi
         """
