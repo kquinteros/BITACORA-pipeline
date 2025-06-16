@@ -14,9 +14,19 @@ Users need to be familiar with [Conda](https://docs.conda.io/en/latest/) package
 ```python 
 conda install -n base -c conda-forge mamba
 conda activate base
-mamba create -c conda-forge -c bioconda -n snakemake snakemake
+conda create -c conda-forge -c bioconda -n snakemake snakemake
 conda activate snakemake
 snakemake --help
+```
+
+## Cloning the Repository
+
+Clone the BITACORA pipeline repository and prepare the main script:
+
+```
+git clone https://github.com/kquinteros/BITACORA-pipeline.git
+cd BITACORA-pipeline
+chmod +x bin/bitacora/runBITACORA_command_line.sh
 ```
 
 ## Setting up configuration file

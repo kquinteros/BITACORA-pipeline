@@ -47,7 +47,7 @@ rule bitacora_gemoma:
         
         if [ ! -s {output.fasta} ]; then touch {output.fasta}; fi
 
-        if [ ! -s {output.fasta} ]; then touch {output.gff}; fi
+        if [ ! -s {output.gff} ]; then touch {output.gff}; fi
         """
 
 rule identify_similar_sequence_clusters_gemoma:
@@ -76,7 +76,7 @@ rule identify_similar_sequence_clusters_gemoma:
         fi
         """
 
-rule Additional_filter_gemoma:
+rule additional_filter_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
