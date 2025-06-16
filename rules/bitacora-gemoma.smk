@@ -45,9 +45,8 @@ rule bitacora_gemoma:
         -l {params.l} -z {params.z} -c {params.c}
         echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
         
-        if [ ! -s {output.fasta} ]; then touch {output.fasta}; fi
-
-        if [ ! -s {output.gff} ]; then touch {output.gff}; fi
+        if [ ! -s "{output.fasta}" ]; then touch "{output.fasta}"; fi
+        if [ ! -s "{output.gff}" ]; then touch "{output.gff}"; fi
         """
 
 rule identify_similar_sequence_clusters_gemoma:
