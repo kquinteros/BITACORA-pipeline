@@ -50,13 +50,13 @@ def genome_key(wildcards):
 def bitacora_output(wildcards):
     return expand("{outdir}/{dir}/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed", dir=["Proximity", "GeMoMa"] ,sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
-sequence_clusters_output
+def sequence_clusters_output(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
-Additional_filter_fasta:
+def Additional_filter_fasta(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
-Additional_filter_gff:
+def Additional_filter_gff(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed_idseqsclustered.gff3", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
