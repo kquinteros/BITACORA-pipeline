@@ -58,10 +58,10 @@ rule identify_similar_sequence_clusters_gemoma:
     output:
         config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta"
     params:
-        tools: os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper script
-        dir: config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
-        length: unpack(protein_min_length), #Minimum length to retain identified genes
-        ident: config["identity_percentage"] #Percent of identity to filter sequences
+        tools = os.path.join(workflow.basedir, config["tools"])
+        dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
+        length = unpack(protein_min_length), #Minimum length to retain identified genes
+        ident =  config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
     shell:
@@ -86,10 +86,10 @@ rule Additional_filter_gemoma:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta",
         gff = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed_idseqsclustered.gff3"
     params:
-        tools: os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
-        dir: config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
-        length: unpack(protein_min_length), #Minimum length to retain identified genes
-        ident: config["identity_percentage"] #Percent of identity to filter sequences
+        tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
+        dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
+        length = unpack(protein_min_length), #Minimum length to retain identified genes
+        ident = config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
     shell:
