@@ -10,7 +10,7 @@ target_genomes: 'configuration/target_genomes.tsv'
 
 ##--- Path To Executable And Dependencies ---##
 BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory-
 GeMoMa: "$CONDA_PREFIX/share/gemoma-1.9-0/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 tools: "bin/bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
