@@ -9,7 +9,7 @@ rule bitacora_gemoma:
     output:
          bed = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed",
          fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
-         gff =  config["outdir"] + "/GeMoMA/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
+         gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
