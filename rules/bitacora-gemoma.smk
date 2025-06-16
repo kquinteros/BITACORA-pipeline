@@ -39,8 +39,8 @@ rule bitacora_gemoma:
         cd {params.outdir}
 
         # Extract file names only
-        fasta_file=$(basename "{output.fasta}")
-        gff_file=$(basename "{output.gff}")
+        fasta_file={wildcard.db}/$(basename "{output.fasta}")
+        gff_file={wildcard.db}/$(basename "{output.gff}")
 
         # Run main command
         echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
