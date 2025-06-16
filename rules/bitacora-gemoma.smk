@@ -58,7 +58,7 @@ rule identify_similar_sequence_clusters_gemoma:
     output:
         config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta"
     params:
-        tools = os.path.join(workflow.basedir, config["tools"])
+        tools = os.path.join(workflow.basedir, config["tools"]),
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
         length = unpack(protein_min_length), #Minimum length to retain identified genes
         ident =  config["identity_percentage"] #Percent of identity to filter sequences
