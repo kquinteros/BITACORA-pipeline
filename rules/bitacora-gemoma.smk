@@ -60,7 +60,7 @@ rule identify_similar_sequence_clusters_gemoma:
     params:
         tools = os.path.join(workflow.basedir, config["tools"]),
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
-        length = unpack(protein_min_length), #Minimum length to retain identified genes
+        length = lambda wildcards: protein_min_length(wildcards)["min_length"], #Minimum length to retain identified genes
         ident =  config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
@@ -88,7 +88,7 @@ rule Additional_filter_gemoma:
     params:
         tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
-        length = unpack(protein_min_length), #Minimum length to retain identified genes
+        length = lambda wildcards: protein_min_length(wildcards)["min_length"], #Minimum length to retain identified genes
         ident = config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
