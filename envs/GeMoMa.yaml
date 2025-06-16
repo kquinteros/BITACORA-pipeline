@@ -1,3 +1,4 @@
+---
 name: GeMoMa_v19
 channels:
   - conda-forge
@@ -29,6 +30,3 @@ dependencies:
   - perl-pathtools
   - perl-scalar-list-utils
   - perl-types-serialiser
-  
-  
-
