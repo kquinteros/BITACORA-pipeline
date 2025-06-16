@@ -37,6 +37,12 @@ rule bitacora_gemoma:
     shell:
         """
         cd {params.outdir}
+
+        # Extract file names only
+        fasta_file=$(basename "{output.fasta}")
+        gff_file=$(basename "{output.gff}")
+
+        # Run main command
         echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
         {params.BITA}/runBITACORA_command_line.sh \
         -m {params.mode} -a {params.algorithm} -q {params.DB} -g {input.fasta} \
@@ -45,8 +51,9 @@ rule bitacora_gemoma:
         -l {params.l} -z {params.z} -c {params.c}
         echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
         
-        if [ ! -s "{output.fasta}" ]; then touch "{output.fasta}"; fi
-        if [ ! -s "{output.gff}" ]; then touch "{output.gff}"; fi
+        # Touch output files if empty or missing (using filename only)
+        if [ ! -s "$fasta_file" ]; then touch "$fasta_file"; fi
+        if [ ! -s "$gff_file" ]; then touch "$gff_file"; fi
         """
 
 rule identify_similar_sequence_clusters_gemoma:
