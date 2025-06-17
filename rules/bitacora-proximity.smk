@@ -11,7 +11,7 @@ rule bitacora_proximity:
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
-        DB = os.path.join(workflow.basedir,config["outdir"]), #path to folder containing databases
+        DB = config["outdir"] + "/{db}/", #path to folder containing databases
         name = genome_key, #prefix for output
         blast = config["use_blast"], #conduct an additional BLASTP search in addition to HMMER to validate novel genes
         algorithm = 'proximity', #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
