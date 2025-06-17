@@ -60,7 +60,7 @@ def Additional_filter_gff(wildcards):
     return expand("{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed_idseqsclustered.gff3", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_data_output(wildcards):
-    return expand("{outdir}/{db}_db.fasta", db=proteins['DB'], outdir=config["outdir"])
+    return expand("{outdir}/{db}/{db}_db.fasta", db=proteins['DB'], outdir=config["outdir"])
 
 def copy_protein_domains_output(wildcards):
-    return expand("{outdir}/{db}_db.hmm", db=proteins['DB'], outdir=config["outdir"])
+    return expand("{outdir}/{db}/{db}_db.hmm", db=proteins['DB'], outdir=config["outdir"])
