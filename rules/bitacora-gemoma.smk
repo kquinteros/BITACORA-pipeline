@@ -33,7 +33,7 @@ rule bitacora_gemoma:
     message:
         "Running BITACORA in genome mode using GeMoMa for sample {wildcards.sample} with database {wildcards.db}"
     log:
-        config["outdir"] + "/GeMoMa/{sample}/{db}/bitacora_{db}.out"
+        config["outdir"] + "/GeMoMa/{sample}/bitacora_{db}.out"
     shell:
         """
         cd {params.outdir}
