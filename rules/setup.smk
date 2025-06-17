@@ -3,8 +3,8 @@ rule link_protein_data:
     input:
         unpack(protein_DB_input)
     output:
-        db= config["outdir"] + "{db}/{db}_db.fasta",
-        hmm = config["outdir"] + "{db}/{db}_db.hmm"
+        db= config["outdir"] + "/{db}/{db}_db.fasta",
+        hmm = config["outdir"] + "/{db}/{db}_db.hmm"
     params: 
          config['BITACORA'] + "/runBITACORA_command_line.sh"
     message:
