@@ -110,9 +110,6 @@ rule additional_filter_gemoma:
             echo "Skipping additional filtering gemoma: {input.fasta} is empty."
             touch {output.fasta}
             touch {output.gff}
-
-            touch "$fasta_file"
-            touch "$gff_file"
         else
             cd {params.dir}
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
