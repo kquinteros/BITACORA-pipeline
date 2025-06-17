@@ -31,7 +31,7 @@ rule bitacora_proximity:
     message:
         "Running BITACORA in genome mode using proximity algorithm for sample {wildcards.sample} with database {wildcards.db}"
     log:
-        config["outdir"] + "/Proximity/{sample}/{db}/bitacora_{db}.out"
+        config["outdir"] + "/Proximity/{sample}/bitacora_{db}.out"
     shell:
         """
         cd {params.outdir}
