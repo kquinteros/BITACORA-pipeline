@@ -13,7 +13,7 @@ rule bitacora_gemoma:
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
-        DB = config["outdir"] + "/{db}/", #path to folder containing database
+        DB = os.path.join(workflow.basedir, config["outdir"] + "/{db}/"), #path to folder containing database
         name = genome_key, #prefix for output
         blast = config["use_blast"], #conduct an additional BLASTP search in addition to HMMER to validate novel genes
         algorithm = 'gemoma', #Algorithm used to predict novel genes. Specify 'gemoma' or 'proximity'
