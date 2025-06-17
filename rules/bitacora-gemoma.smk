@@ -31,7 +31,7 @@ rule bitacora_gemoma:
     threads: 
         config["cpus"] #number of threads avaliable per bitacora run
     message:
-        "Running BITACORA in genome mode using GeMoMa  for sample {wildcards.sample} with database {wildcards.db}"
+        "Running BITACORA in genome mode using GeMoMa for sample {wildcards.sample} with database {wildcards.db}"
     log:
         config["outdir"] + "/GeMoMa/{sample}/{db}/bitacora_{db}.out"
     shell:
@@ -119,4 +119,3 @@ rule additional_filter_gemoma:
             perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$fasta_file" ../"$gff_file" {params.length} {params.ident} {threads}
         fi
         """
-output/GeMoMa/S001/P3/P3_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta
