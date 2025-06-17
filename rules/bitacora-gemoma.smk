@@ -43,13 +43,15 @@ rule bitacora_gemoma:
         gff_file={wildcards.db}/$(basename "{output.gff}")
 
         # Run main command
-        echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
+        echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db} \n " > {log}
         {params.BITA}/runBITACORA_command_line.sh \
         -m {params.mode} -a {params.algorithm} -q {params.DB} -g {input.fasta} \
         -n {params.name} -sp {params.sp} -gp {params.gp} -bp {params.bp} \
         -hp {params.bp} -t {threads} -b {params.blast} -e {params.e} -i {params.i} -r {params.r} \
         -l {params.l} -z {params.z} -c {params.c}
-        echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
+        echo "*_genecounts_genomics_proteins.txt \n" >> {log}
+        echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> {log}
+
         
         # Touch output files if empty or missing (using filename only)
         if [ ! -s "$fasta_file" ]; then touch "$fasta_file"; fi
