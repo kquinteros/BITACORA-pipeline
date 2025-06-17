@@ -78,8 +78,7 @@ rule identify_similar_sequence_clusters_gemoma:
         #check if input file is empty
         if [[ ! -s {input.fasta} ]]; then
             echo "Skipping: {input.fasta} is empty."
-            fasta_file=$(basename "{output}")
-            touch "$fasta_file"
+            touch "{output}"
         else
             cd {params.dir}
             fasta_file=$(basename "{input.fasta}")
