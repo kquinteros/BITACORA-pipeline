@@ -4,8 +4,8 @@ rule bitacora_proximity:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
         unpack(genome_input),
-        db= config["outdir"] + "/{db}_db.fasta",
-        hmm = config["outdir"] + "/{db}_db.hmm"
+        db= config["outdir"] + "/{db}/{db}_db.fasta",
+        hmm = config["outdir"] + "/{db}/{db}_db.hmm"
     output:
          config["outdir"] + "/Proximity/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed"
     params:

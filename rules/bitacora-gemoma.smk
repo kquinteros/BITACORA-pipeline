@@ -4,8 +4,8 @@ rule bitacora_gemoma:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
         unpack(genome_input),
-        db= config["outdir"] + "/{db}_db.fasta",
-        hmm = config["outdir"] + "/{db}_db.hmm"
+        db= config["outdir"] + "/{db}/{db}_db.fasta",
+        hmm = config["outdir"] + "/{db}/{db}_db.hmm"
     output:
          bed = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed",
          fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
