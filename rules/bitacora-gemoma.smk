@@ -107,9 +107,9 @@ rule additional_filter_gemoma:
         """
         # Check if input file is empty
         if [[ ! -s {input.fasta} ]]; then
-            echo "Skipping: {input.fasta} is empty."
-            fasta_file=$(basename "{output.fasta}")
-            gff_file=$(basename "{output.gff}")
+            echo "Skipping additional filtering gemoma: {input.fasta} is empty."
+            touch {output.fasta}
+            touch {output.gff}
 
             touch "$fasta_file"
             touch "$gff_file"
