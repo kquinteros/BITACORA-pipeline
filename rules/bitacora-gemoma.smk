@@ -105,18 +105,18 @@ rule additional_filter_gemoma:
         config["cpus"] #Threads to use in blastp search
     shell:
         """
-        #check if input file is empty
+        # Check if input file is empty
         if [[ ! -s {input.fasta} ]]; then
             echo "Skipping: {input.fasta} is empty."
             fasta_file=$(basename "{output.fasta}")
-            gff_file=$(basename"{output.gff"})
+            gff_file=$(basename "{output.gff}")
 
             touch "$fasta_file"
             touch "$gff_file"
         else
             cd {params.dir}
             fasta_file=$(basename "{input.fasta}")
-            gff_file=$(basename"{input.gff"})
+            gff_file=$(basename "{input.gff}")
             perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$fasta_file" ../"$gff_file" {params.length} {params.ident} {threads}
         fi
         """
