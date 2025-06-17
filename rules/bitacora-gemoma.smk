@@ -49,7 +49,7 @@ rule bitacora_gemoma:
         -n {params.name} -sp {params.sp} -gp {params.gp} -bp {params.bp} \
         -hp {params.bp} -t {threads} -b {params.blast} -e {params.e} -i {params.i} -r {params.r} \
         -l {params.l} -z {params.z} -c {params.c}
-        echo "*_genecounts_genomics_proteins.txt \n" >> bitacora_{wildcards.db}.out
+        cat *_genecounts_genomics_proteins.txt >> bitacora_{wildcards.db}.out
         echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
 
         
