@@ -81,6 +81,7 @@ rule identify_similar_sequence_clusters_gemoma:
             touch "{output}"
         else
             cd {params.dir}
+            echo "Running sequence clustering for {wildcards.sample} with DB {wildcards.db}"
             fasta_file=$(basename "{input.fasta}")
             perl {params.tools}/identify_similar_sequence_clusters.pl ../"$fasta_file" {params.length} {params.ident} {threads} 
         fi
@@ -114,6 +115,7 @@ rule additional_filter_gemoma:
             touch "$gff_file"
         else
             cd {params.dir}
+            echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
             fasta_file=$(basename "{input.fasta}")
             gff_file=$(basename "{input.gff}")
             perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$fasta_file" ../"$gff_file" {params.length} {params.ident} {threads}

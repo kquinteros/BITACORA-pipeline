@@ -29,7 +29,7 @@ rule bitacora_proximity:
     threads: 
         config["cpus"] #number of threads avaliable per bitacora run
     message:
-        "Running BITACORA in genome mode using proximity algorithm"
+        "Running BITACORA in genome mode using proximity algorithm for sample {wildcards.sample} with database {wildcards.db}"
     log:
         config["outdir"] + "/Proximity/{sample}/{db}/bitacora_{db}.out"
     shell:
