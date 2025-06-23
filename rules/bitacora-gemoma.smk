@@ -8,8 +8,8 @@ rule bitacora_gemoma:
         hmm = config["outdir"] + "/{db}/{db}_db.hmm"
     output:
          bed = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed",
-         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
-         gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
+         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
+         gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
@@ -62,9 +62,9 @@ rule identify_similar_sequence_clusters_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
-        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta"
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta"
     output:
-        config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta"
+        config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqclustered.fasta"
     params:
         tools = os.path.join(workflow.basedir, config["tools"]),
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
@@ -93,11 +93,11 @@ rule additional_filter_gemoma:
     conda:
         os.path.join(workflow.basedir, config["env-GeMoMA"])
     input:
-        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed.fasta",
-        gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed.gff3"
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
+        gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
     output:
-        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_proteins_trimmed_idseqclustered.fasta",
-        gff = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_and_annotated_genes_trimmed_idseqsclustered.gff3"
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
+        gff = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed_idseqsclustered.gff3"
     params:
         tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/", #Directory for output
