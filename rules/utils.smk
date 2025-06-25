@@ -8,16 +8,12 @@ from smart_open import open
 validate(config, schema="../configuration/config.schema.yaml")
 
 ##--- load and validate protein sequences and hmmer protein domains files ---##
-proteins = pd.read_csv(config["protein_table"],
-                        sep="\t",
-                          dtype = str).set_index("DB", drop=False)
+proteins = pd.read_csv(config["protein_table"], sep="\t", dtype = str).set_index("DB", drop=False)
 proteins.index.names = ["Index"]
 validate(proteins, schema = "../configuration/Protein_database.schema.yaml")
 
 ##--- load and validate genome sequences and annotations ---##
-genomes = pd.read_csv(config["target_genomes"],
-                       sep="\t",
-                         dtype = str).set_index("Sample", drop=False)
+genomes = pd.read_csv(config["target_genomes"], sep="\t", dtype = str).set_index("Sample", drop=False)
 genomes.index.names = ["Index"]
 validate(genomes, schema = "../configuration/target_genomes.schema.yaml")
 
@@ -53,19 +49,20 @@ def genome_key(wildcards):
 #Output functions for bitacora pipeline
 
 def sequence_clusters_output(wildcards):
+    return expand("{outdir}/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqclustered.fasta", sample=genomes['Sample'], db=proteins['DB'], outdir=config["outdir"])
+
+def Additional_filter_fasta(wildcards):
     return expand(
-        "{outdir}/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
-        sample=genomes['Sample'],
-        db=proteins['DB'],
+        "{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
+        sample=genomes["Sample"],
+        db=proteins["DB"],
         outdir=config["outdir"]
     )
 
-def Additional_filter(wildcards):
+def Additional_filter_gff(wildcards):
     return expand(
-        "{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_{type}_trimmed_idseqclustered.{ext}",
-        sample=genomes['Sample'],
-        db=proteins['DB'],
-        type={"proteins", "genes"},
-        ext=["fasta", "gff3"],
+        "{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed_idseqsclustered.gff3",
+        sample=genomes["Sample"],
+        db=proteins["DB"],
         outdir=config["outdir"]
     )
