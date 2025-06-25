@@ -21,10 +21,11 @@ include: 'rules/bitacora-proximity.smk' #contains the main rules for bitacora pi
 #universal rule that checks the output of every rule  
 rule all:
     input:
-        copy_protein_domains_output,
-        copy_protein_data_output,
-        bitacora_output,
-        sequence_clusters_output,
+        #copy_protein_domains_output,
+        #copy_protein_data_output,
+        #bitacora_bed,
+        #bitecora_annot,
+        #sequence_clusters_output,
         Additional_filter_fasta,
         Additional_filter_gff
         

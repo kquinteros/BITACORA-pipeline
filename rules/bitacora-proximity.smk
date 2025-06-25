@@ -7,7 +7,9 @@ rule bitacora_proximity:
         db= config["outdir"] + "/{db}/{db}_db.fasta",
         hmm = config["outdir"] + "/{db}/{db}_db.hmm"
     output:
-         config["outdir"] + "/Proximity/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed"
+         config["outdir"] + "/Proximity/{sample}/{db}/{db}tblastn_parsed_list_genomic_positions_nogff_filtered.bed",
+         fasta = config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
+         gff =  config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
     params:
         BITA = os.path.join(workflow.basedir, config["BITACORA"]), # path to commandline script for bitacora
         mode = "genome", #bitacora mode
@@ -34,14 +36,24 @@ rule bitacora_proximity:
         config["outdir"] + "/Proximity/{sample}/bitacora_{db}.out"
     shell:
         """
-        cd {params.outdir}
-        echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db}" > bitacora_{wildcards.db}.out
+         cd {params.outdir}
+
+        # Extract file names only
+        fasta_file={wildcards.db}/$(basename "{output.fasta}")
+        gff_file={wildcards.db}/$(basename "{output.gff}")
+
+        # Run main command
+        echo "Starting BITACORA for sample {wildcards.sample} with DB {wildcards.db} at $(date) \n " > bitacora_{wildcards.db}.out
         {params.BITA}/runBITACORA_command_line.sh \
         -m {params.mode} -a {params.algorithm} -q {params.DB} -g {input.fasta} \
         -n {params.name} -sp {params.sp} -gp {params.gp} -bp {params.bp} \
         -hp {params.bp} -t {threads} -b {params.blast} -e {params.e} -i {params.i} -r {params.r} \
         -l {params.l} -z {params.z} -c {params.c}
-        echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date)" >> bitacora_{wildcards.db}.out
+        echo "Sample {wildcards.sample} with DB {wildcards.db} finished at $(date) \n" >> bitacora_{wildcards.db}.out
+        cat {params.name}_genecounts_genomic_proteins.txt >> bitacora_{wildcards.db}.out
+
+        
+        # Touch output files if empty or missing (using filename only)
+        if [ ! -s "$fasta_file" ]; then touch "$fasta_file"; fi
+        if [ ! -s "$gff_file" ]; then touch "$gff_file"; fi
         """
-
-
