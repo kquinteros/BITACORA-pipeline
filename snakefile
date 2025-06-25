@@ -24,4 +24,3 @@ rule all:
         sequence_clusters_output,
         Additional_filter_gff,
         Additional_filter_fasta
-        
