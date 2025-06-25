@@ -22,6 +22,5 @@ include: 'rules/bitacora-proximity.smk' #contains the main rules for bitacora pi
 rule all:
     input:
         sequence_clusters_output,
-        Additional_filter_fasta,
-        Additional_filter_gff
+        Additional_filter
         
