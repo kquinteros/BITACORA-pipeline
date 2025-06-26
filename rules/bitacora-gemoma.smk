@@ -119,6 +119,6 @@ rule additional_filter_gemoma:
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
             file=$(basename "{input.fasta}")
             gff_file=$(basename "{input.gff}")
-            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$file" ../"$gff_file" {params.length} {params.ident} {threads}
+            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl "$file" "$gff_file" {params.length} {params.ident} {threads}
         fi
         """
