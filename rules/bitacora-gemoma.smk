@@ -116,6 +116,6 @@ rule additional_filter_gemoma:
             touch {output.gff}
         else
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
-            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl "$file" "$gff_file" {params.length} {params.ident} {threads}
+            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl {input.fasta} {input.gff} {params.length} {params.ident} {threads}
         fi
         """
