@@ -25,4 +25,4 @@ required:
   - clean_out
   - outdir
   - cpus
-  - env-GeMoMA
+  - env-GeMoMa
