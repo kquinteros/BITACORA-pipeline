@@ -117,5 +117,6 @@ rule additional_filter_gemoma:
         else
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
             perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl {input.fasta} {input.gff} {params.length} {params.ident} {threads}
+            mv {params.dir}/{wildcards.db}_genomic_proteins_trimmed_idseqsclustered.gff3 {output.gff}
         fi
         """
