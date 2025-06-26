@@ -31,7 +31,7 @@ identity_percentage: 98
 cpus: 48 #number of threads avaliable per bitacora run 
 
 ##--- conda environments --##
-env-GeMoMA: "envs/GeMoMa.yaml"
+env-GeMoMa: "envs/GeMoMa.yaml"
 
 
 

@@ -1,7 +1,7 @@
 ###--- run bitacora in genome mode using gemoma---###   
 rule bitacora_proximity:
     conda:
-        os.path.join(workflow.basedir, config["env-GeMoMA"])
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
     input:
         unpack(genome_input),
         db= config["outdir"] + "/{db}/{db}_db.fasta",
@@ -56,4 +56,66 @@ rule bitacora_proximity:
         # Touch output files if empty or missing (using filename only)
         if [ ! -s "$fasta_file" ]; then touch "$fasta_file"; fi
         if [ ! -s "$gff_file" ]; then touch "$gff_file"; fi
+        """
+rule identify_similar_sequence_clusters_proximity:
+    conda:
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
+    input:
+        fasta = config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta"
+    output:
+        config["outdir"] + "/Proximity/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqsclustered.fasta"
+    params:
+        tools = os.path.join(workflow.basedir, config["tools"]),
+        dir = config["outdir"] + "/Proximity/{sample}/{db}/seq_cluster/", #Directory for output
+        length = lambda wildcards: protein_min_length(wildcards)["min_length"], #Minimum length to retain identified genes
+        ident =  config["identity_percentage"] #Percent of identity to filter sequences
+    threads:
+        config["cpus"] #Threads to use in blastp search
+    shell:
+        """
+        #mkdir output direcotry
+        mkdir -p {params.dir}
+
+        #check if input file is empty
+        if [[ ! -s {input.fasta} ]]; then
+            echo "Skipping: {input.fasta} is empty."
+            touch "{output}"
+        else
+        cd {params.dir}
+        echo "Running sequence clustering for {wildcards.sample} with DB {wildcards.db}"
+        file=$(basename "{input.fasta}")
+        ln -s ../"$file" "$file"
+        perl {params.tools}/identify_similar_sequence_clusters.pl "$file" {params.length} {params.ident} {threads}
+        rm -f "$file" #remove symlink
+        fi
+        """
+
+rule additional_filter_proximity:
+    conda:
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
+    input:
+        fasta = config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
+        gff =  config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
+    output:
+        fasta = config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqsclustered.fasta",
+        gff = config["outdir"] + "/Proximity/{sample}/{db}/{db}_genomic_genes_trimmed_idseqsclustered.gff3"
+    params:
+        tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
+        dir = config["outdir"] + "/Proximity/{sample}/{db}/", #Directory for output
+        length = lambda wildcards: protein_min_length(wildcards)["min_length"], #Minimum length to retain identified genes
+        ident = config["identity_percentage"] #Percent of identity to filter sequences
+    threads:
+        config["cpus"] #Threads to use in blastp search
+    shell:
+        """
+        # Check if input file is empty
+        if [[ ! -s {input.fasta} ]]; then
+            echo "Skipping additional filtering gemoma: {input.fasta} is empty."
+            touch {output.fasta}
+            touch {output.gff}
+        else
+            echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
+            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl {input.fasta} {input.gff} {params.length} {params.ident} {threads}
+            mv {params.dir}/{wildcards.db}_genomic_proteins_trimmed_idseqsclustered.gff3 {output.gff}
+        fi
         """

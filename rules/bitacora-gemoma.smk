@@ -1,7 +1,7 @@
 ###--- run bitacora in genome mode using gemoma---###   
 rule bitacora_gemoma:
     conda:
-        os.path.join(workflow.basedir, config["env-GeMoMA"])
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
     input:
         unpack(genome_input),
         db= config["outdir"] + "/{db}/{db}_db.fasta",
@@ -60,7 +60,7 @@ rule bitacora_gemoma:
 
 rule identify_similar_sequence_clusters_gemoma:
     conda:
-        os.path.join(workflow.basedir, config["env-GeMoMA"])
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
     input:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta"
     output:
@@ -93,7 +93,7 @@ rule identify_similar_sequence_clusters_gemoma:
 
 rule additional_filter_gemoma:
     conda:
-        os.path.join(workflow.basedir, config["env-GeMoMA"])
+        os.path.join(workflow.basedir, config["env-GeMoMa"])
     input:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
         gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
