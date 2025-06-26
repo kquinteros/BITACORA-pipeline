@@ -64,7 +64,7 @@ rule identify_similar_sequence_clusters_gemoma:
     input:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta"
     output:
-        config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqclustered.fasta"
+        config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqsclustered.fasta"
     params:
         tools = os.path.join(workflow.basedir, config["tools"]),
         dir = config["outdir"] + "/GeMoMa/{sample}/{db}/seq_cluster/", #Directory for output
@@ -82,10 +82,12 @@ rule identify_similar_sequence_clusters_gemoma:
             echo "Skipping: {input.fasta} is empty."
             touch "{output}"
         else
-            cd {params.dir}
-            echo "Running sequence clustering for {wildcards.sample} with DB {wildcards.db}"
-            fasta_file=$(basename "{input.fasta}")
-            perl {params.tools}/identify_similar_sequence_clusters.pl ../"$fasta_file" {params.length} {params.ident} {threads} 
+        cd {params.dir}
+        echo "Running sequence clustering for {wildcards.sample} with DB {wildcards.db}"
+        file=$(basename "{input.fasta}")
+        ln -s ../"$file" "$file"
+        perl {params.tools}/identify_similar_sequence_clusters.pl "$file" {params.length} {params.ident} {threads}
+        rm -f "$file" #remove symlink
         fi
         """
 
@@ -96,7 +98,7 @@ rule additional_filter_gemoma:
         fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed.fasta",
         gff =  config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed.gff3"
     output:
-        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
+        fasta = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqsclustered.fasta",
         gff = config["outdir"] + "/GeMoMa/{sample}/{db}/{db}_genomic_genes_trimmed_idseqsclustered.gff3"
     params:
         tools =  os.path.join(workflow.basedir, config["tools"]), #Path to bitacora helper tools
@@ -115,8 +117,12 @@ rule additional_filter_gemoma:
         else
             cd {params.dir}
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
-            fasta_file=$(basename "{input.fasta}")
+            file=$(basename "{input.fasta}")
             gff_file=$(basename "{input.gff}")
-            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$fasta_file" ../"$gff_file" {params.length} {params.ident} {threads}
+            ln -s ../"$file" "$file"
+            ln -s ../"$gff_file" "$gff_file"
+            perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$file" ../"$gff_file" {params.length} {params.ident} {threads}
+            rm -f "$file" #remove symlink
+            rm -f "$gff_file" #remove symlink
         fi
         """

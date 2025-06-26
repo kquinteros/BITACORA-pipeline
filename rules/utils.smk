@@ -50,14 +50,14 @@ def genome_key(wildcards):
 
 def sequence_clusters_output(wildcards):
     return expand(
-        "{outdir}/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
+        "{outdir}/GeMoMa/{sample}/{db}/seq_cluster/{db}_genomic_proteins_trimmed_idseqsclustered.fasta"",
         sample=genomes['Sample'],
         db=proteins['DB'], 
         outdir=config["outdir"])
 
 def Additional_filter_fasta(wildcards):
     return expand(
-        "{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqclustered.fasta",
+        "{outdir}/GeMoMa/{sample}/{db}/{db}_genomic_proteins_trimmed_idseqsclustered.fasta"",
         sample=genomes["Sample"],
         db=proteins["DB"],
         outdir=config["outdir"]
