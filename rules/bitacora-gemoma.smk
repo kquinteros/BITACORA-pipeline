@@ -119,10 +119,6 @@ rule additional_filter_gemoma:
             echo "Running additional filtering for {wildcards.sample} with DB {wildcards.db}"
             file=$(basename "{input.fasta}")
             gff_file=$(basename "{input.gff}")
-            ln -s ../"$file" "$file"
-            ln -s ../"$gff_file" "$gff_file"
             perl {params.tools}/exclude_similar_sequences_infasta_andgff.pl ../"$file" ../"$gff_file" {params.length} {params.ident} {threads}
-            rm -f "$file" #remove symlink
-            rm -f "$gff_file" #remove symlink
         fi
         """
