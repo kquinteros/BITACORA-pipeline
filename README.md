@@ -43,7 +43,7 @@ target_genomes: 'configuration/target_genomes.tsv'
 
 ##--- Path To Executable And Dependencies ---##
 BITACORA: "bin/bitacora" #PATH to BITACORA commandline script, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
-scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
+scripts: "bin/bitacora/Scripts" #Path to BITACORA Scripts directory-
 GeMoMa: "$CONDA_PREFIX/share/gemoma-1.9-0/GeMoMa-1.9.jar" #Path to GeMoMa executable jar file, if error check params for rule "bitacora_full" in 02_rules/bitacora-pipeline.smk
 tools: "bin/bitacora/Scripts/Tools" #Bitacora tools
 blast: "$CONDA_PREFIX/bin/" #Path to BLAST executable
@@ -56,11 +56,15 @@ evalue: 1e-5 #Evalue for BLAST and HMMER
 clean_out: "T" #Clean output files
 outdir: "output"
 
+##--- sequence clustering ---##
+identity_percentage: 98
+
+
 ##--- computational resources ---##
 cpus: 48 #number of threads avaliable per bitacora run 
 
 ##--- conda environments --##
-env-GeMoMA: "envs/GeMoMa.yaml"
+env-GeMoMa: "envs/GeMoMa.yaml"
 ```
 
 ## Input data
@@ -98,7 +102,7 @@ Be sure you are in the BITACORA-pipeline directory. Activate your snakemake envi
 ```
 cd /PATH/TO/BITACORA-pipeline/
 conda activate snakemake 
-snakemake -s snakefile --use-conda 
+snakemake -s snakefile --use-conda --cores [num]
 ```
 Some workflows can take a few hours to run depending on the size of the  target genome and the number of sequences in your protein database. In that case, you may want to run snakemake workflow in the background. 
 
