@@ -93,7 +93,7 @@ env-GeMoMa: "envs/GeMoMa.yaml"
 | P3     | Gustatory Receptors     | data/01_protein_domains/Trehalose_recp.hmm | data/00_protein_sequences/GR_tre_db.fasta | 200        |
 | P4     | Chemosensory Proteins   | data/01_protein_domains/OS-D.hmm       | data/00_protein_sequences/CSP_db.fasta      | 90         |
 | P5     | Odorant Binding Proteins| data/01_protein_domains/PBP_GOBP.hmm   | data/00_protein_sequences/OBP_db.fasta      | 100        |
-| P6     | Ionotropic Receptors    | data/01_protein_domains/Lig_chan.hmm   | data/00_protein_sequences/IR_db.fasta       | 350        |
+| P6     | Chemosensory Ionotropic glutamate receptors     | data/01_protein_domains/Lig_chan.hmm   | data/00_protein_sequences/IR_db.fasta       | 350        |
 
 ## Run snakemake workflow
 
