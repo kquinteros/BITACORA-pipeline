@@ -110,8 +110,7 @@ rule additional_filter_gemoma:
     threads:
         config["cpus"] #Threads to use in blastp search
     message:
-        "Running script to  identity highly similar sequences (with 98% identity) and filter on minimum length, equivalent to running -r  and -I " 
-identity"
+        "Running script to  identity highly similar sequences (with 98% identity) and filter on minimum length, equivalent to running -r  and -I "
     shell:
         """
         # Check if input file is empty
