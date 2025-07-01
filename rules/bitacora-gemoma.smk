@@ -31,7 +31,7 @@ rule bitacora_gemoma:
     threads: 
         config["cpus"] #number of threads avaliable per bitacora run
     message:
-        "Running BITACORA in genome mode using GeMoMa for sample {wildcards.sample} with database {wildcards.db}"
+        "Running BITACORA in genome mode with GeMoMa for sample {wildcards.sample} using database {wildcards.db}. Output filtering will be performed separately."
     log:
         config["outdir"] + "/GeMoMa/{sample}/bitacora_{db}.out"
     shell:
@@ -72,6 +72,8 @@ rule identify_similar_sequence_clusters_gemoma:
         ident =  config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
+    message:
+        "Running script to identify highly identical clusters"
     shell:
         """
         #mkdir output direcotry
@@ -83,7 +85,7 @@ rule identify_similar_sequence_clusters_gemoma:
             touch "{output}"
         else
         cd {params.dir}
-        echo "Running sequence clustering for {wildcards.sample} with DB {wildcards.db}"
+        echo "Running script to cluster sequences for {wildcards.sample} with DB {wildcards.db}"
         file=$(basename "{input.fasta}")
         ln -s ../"$file" "$file"
         perl {params.tools}/identify_similar_sequence_clusters.pl "$file" {params.length} {params.ident} {threads}
@@ -107,6 +109,9 @@ rule additional_filter_gemoma:
         ident = config["identity_percentage"] #Percent of identity to filter sequences
     threads:
         config["cpus"] #Threads to use in blastp search
+    message:
+        "Running script to  identity highly similar sequences (with 98% identity) and filter on minimum length, equivalent to running -r  and -I " 
+identity"
     shell:
         """
         # Check if input file is empty
